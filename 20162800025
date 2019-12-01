@@ -1,0 +1,156 @@
+import javax.xml.transform.Source;
+import java.sql.SQLOutput;
+import java.util.*;
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Roma Rakamından Onluk Tabana Çevirme işlemi için  1'e Basınız");
+        System.out.println("Onluk Tabandan Roman Rakamına Çevirme işlemi için 2'e Basınız");
+        Scanner sc = new Scanner(System.in);
+        int secim = sc.nextInt();
+        switch (secim)
+        {
+            case 1:
+                System.out.println("Bir Roma Rakamı Giriniz");
+                int deger =sayidanromarakamina();
+                System.out.println(deger);
+                break;
+            case 2:
+                romarakamindansayiya();
+                break;
+        }
+
+
+    }
+
+
+    static void romarakamindansayiya () {
+
+        Scanner romarakami = new Scanner(System.in);
+
+
+        System.out.print("Lütfen roma rakamına çevirmek istediğiniz sayıyı giriniz");
+        int sayi = romarakami.nextInt();
+
+        while (sayi != 0 && sayi < 4000) {
+            while (sayi > 999) {
+                sayi = sayi - 1000;
+                System.out.print("M");
+            }
+            if (sayi >= 900) {
+                sayi = sayi - 900;
+                System.out.print("CM");
+            } else {
+                while (sayi>499){
+                    sayi = sayi-500;
+                    System.out.print("D");
+                }
+                if (sayi >= 400) {
+                    System.out.print("CD");
+                    sayi = sayi - 400;
+                } else {
+                    while (sayi > 99) {
+                        sayi = sayi - 100;
+                        System.out.print("C");
+                    }
+                    if (sayi >= 90) {
+                        sayi = sayi - 90;
+                        System.out.print("XC");
+                    } else {
+                        if (sayi >= 50) {
+                            sayi = sayi - 50;
+                            System.out.print("L");
+                        } else {
+                            if (sayi >= 40) {
+                                sayi = sayi - 40;
+                                System.out.print("XL");
+                            } else {
+                                while (sayi > 9) {
+                                    sayi = sayi - 10;
+                                    System.out.print("X");
+                                }
+                                if (sayi >= 9) {
+                                    sayi = sayi - 9;
+                                    System.out.print("IX");
+                                } else {
+                                    if (sayi >= 5) {
+                                        sayi = sayi - 5;
+                                        System.out.print("V");
+                                    } else {
+                                        if (sayi >= 4) {
+                                            sayi = sayi - 4;
+                                            System.out.print("IV");
+                                        } else {
+                                            while (sayi > 0) {
+                                                sayi = sayi - 1;
+                                                System.out.print("I");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    public static int sayidanromarakamina(){
+        Scanner input = new Scanner(System.in);
+        String kelime = input.nextLine();
+
+
+        String  [] harfler = new String[kelime.length()];
+        String  [] terstenharfler = new String[kelime.length()];
+
+
+        for (int i = 0; i <kelime.length() ; i++) {
+            harfler[i] = kelime.substring(i,i+1);
+        }
+
+        int count = 0;
+        for (int i = kelime.length()-1; i >-1 ; i--) {
+            terstenharfler[i] = harfler[count];
+            count++;
+        }
+
+        int temp = 0;
+        int toplam=0;
+        int sayi1=0;
+        for (int i = 0; i <kelime.length() ; i++) {
+
+
+            if (terstenharfler[i].equals("I")) {
+                sayi1 = 1;
+            } else if (terstenharfler[i].equals("V")) {
+                sayi1 = 5;
+            } else if (terstenharfler[i].equals("X")) {
+                sayi1 = 10;
+            } else if (terstenharfler[i].equals("L")) {
+                sayi1 = 50;
+            } else if (terstenharfler[i].equals("C")) {
+                sayi1 = 100;
+            } else if (terstenharfler[i].equals("D")) {
+                sayi1 = 500;
+            } else if (terstenharfler[i].equals("M")) {
+                sayi1 = 1000;
+            }
+
+            if (sayi1 >= temp) {
+                toplam = toplam + sayi1;
+                temp = sayi1;
+            } else {
+                toplam = toplam - sayi1;
+            }
+        }
+
+        return toplam;
+
+
+        }
+
+
+
+}
